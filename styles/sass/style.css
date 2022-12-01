@@ -230,35 +230,91 @@ html {
   overflow: hidden;
 }
 
-.container {
-  display: flex;
+body {
+  background-image: url(../assets/tetris-background.jpg);
+  background-size: cover;
+  font-family: "Orbitron", sans-serif;
+  text-align: center;
+}
+body .titles {
+  width: 100%;
+}
+body h1,
+body h2 {
+  color: white;
+  padding: 10px 0;
+  background-color: black;
+  width: 500px;
+  border-radius: 50px;
+  margin: 0 auto;
+  padding: 20px 0;
+  margin-top: 20px;
+}
+body h1 {
+  font-size: 100px;
 }
 
-.grid {
-  width: 200px;
-  height: 400px;
+.wrapper {
+  max-width: 1260px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.grid-contain,
+.mini-grid-contain {
+  background-color: white;
+  margin-top: 30px;
+  border: 5px outset gray;
+}
+.grid-contain .grid,
+.grid-contain .mini-grid,
+.mini-grid-contain .grid,
+.mini-grid-contain .mini-grid {
   display: flex;
   flex-wrap: wrap;
-  background-color: yellow;
+  background-color: white;
 }
-.grid div {
+.grid-contain .grid div,
+.grid-contain .mini-grid div,
+.mini-grid-contain .grid div,
+.mini-grid-contain .mini-grid div {
   height: 20px;
   width: 20px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+.container .grid-contain {
+  width: 210px;
+  height: 410px;
+}
+.container .mini-grid-contain {
+  height: 150px;
+  width: 110px;
+  margin-left: 50px;
+}
+.container .grid {
+  width: 200px;
+  height: 400px;
+  margin: 0 auto;
+}
+.container .mini-grid {
+  width: 80px;
+  height: 80px;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
 .tetromino {
-  background-color: royalblue;
+  border: 2px outset gray;
+  border-radius: 5px;
 }
 
-.mini-grid {
-  margin-left: 50px;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  flex-wrap: wrap;
-  background-color: yellow;
-}
-.mini-grid div {
-  height: 20px;
-  width: 20px;
+button {
+  margin-top: 60px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 30px;
 }/*# sourceMappingURL=style.css.map */

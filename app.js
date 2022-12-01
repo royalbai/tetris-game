@@ -1,6 +1,7 @@
 const grid = document.querySelector(".grid");
 let squares = Array.from(document.querySelectorAll(".grid div"));
 const scoreDisplay = document.querySelector("#score");
+const endDisplay = document.querySelector("h2");
 const startBtn = document.querySelector("#start-button");
 const width = 10;
 let nextRandom = 0;
@@ -124,7 +125,6 @@ const moveLeft = () => {
 const moveRight = () => {
     undraw();
     const rightEdge = current.some(index => (currentPosition + index) % width === width - 1);
-
     if (!rightEdge) {
         currentPosition += 1;
     }
@@ -132,6 +132,29 @@ const moveRight = () => {
         currentPosition -= 1;
     }
     draw();
+}
+
+ ///Fix rotation of tetrominos on the edge
+const isAtRight = () => {
+    return current.some(index=> (currentPosition + index + 1) % width === 0)  
+}
+const isAtLeft = () => {
+    return current.some(index=> (currentPosition + index) % width === 0)
+}
+const checkRotatedPosition = (p) => {
+    p = p || currentPosition            //Get current position and check if the piece is near the edge
+    if ((p+1) % width < 4) {            //Add 1 because the position index can be 1 less than where the piece is (with how they are indexed)    
+      if (isAtRight()){                 //Use actual position to check if it's flipped over
+        currentPosition += 1            //If so, add one to wrap it back around
+        checkRotatedPosition(p)         //Check again and pass position from start, since long block might need to move more
+        }
+    }
+    else if (p % width > 5) {
+        if (isAtLeft()){
+            currentPosition -= 1
+            checkRotatedPosition(p)
+        }
+    }
 }
 
 // Rotate the tetronmino
@@ -142,6 +165,7 @@ const rotate = () => {
         currentRotation = 0;
     }
     current = theTetrominoes[random][currentRotation];
+    checkRotatedPosition();
     draw();
 }
 
@@ -180,7 +204,6 @@ startBtn.addEventListener("click", () => {
     } else {
         draw();
         timerId = setInterval(moveDown, 500);
-        nextRandom = Math.floor(Math.random()*theTetrominoes.length);
         displayShape();
     }
 }) 
@@ -208,7 +231,7 @@ const addScore = () => {
 // Game over function
 const gameOver = () => {
     if (current.some(index => squares[currentPosition + index].classList.contains("taken"))) {
-        scoreDisplay.innerHTML = `${score} end`;
+        endDisplay.innerHTML = `Game over! ${score} is your final score`;
         clearInterval(timerId);
     }
 }

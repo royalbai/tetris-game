@@ -1,0 +1,97 @@
+// Tyography
+// font-family: 'Orbitron', sans-serif;
+
+body {
+    background-image: url(../assets/tetris-background.jpg);
+    background-size: cover;
+    font-family: 'Orbitron', sans-serif;
+    text-align: center;
+
+    .titles {
+        width: 100%;
+    }
+
+    h1,
+    h2 {
+        color: white;
+        padding: 10px 0;
+        background-color: black;
+        width: 500px;
+        border-radius: 50px;
+        margin: 0 auto;
+        padding: 20px 0;
+        margin-top: 20px;
+    }
+
+    h1 {
+        font-size: 100px;
+    }
+}
+
+.wrapper {
+    max-width: 1260px;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.grid-contain,
+.mini-grid-contain {
+    background-color: white;
+    margin-top: 30px;
+    border: 5px outset gray;
+    
+    .grid,
+    .mini-grid {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: white;
+
+        div {
+            height: 20px;
+            width: 20px;
+        }
+    }
+}
+
+
+.container {
+    display: flex;
+    justify-content: center;
+
+    .grid-contain {
+        width: 210px;
+        height: 410px;
+    }
+
+    .mini-grid-contain {
+        height: 150px;
+        width: 110px;
+        margin-left: 50px;
+    }
+
+    .grid {
+        width: 200px;
+        height: 400px;
+        margin: 0 auto;
+    }
+
+    .mini-grid {
+        width: 80px;
+        height: 80px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+}
+
+
+.tetromino {
+    border: 2px outset gray;
+    border-radius: 5px;
+}
+
+button {
+    margin-top: 60px;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 30px;
+}
