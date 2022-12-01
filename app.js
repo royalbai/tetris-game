@@ -4,6 +4,7 @@ let squares = document.querySelectorAll(".grid div");
 const scoreDisplay = document.querySelector("#score");
 const startBtn = document.querySelector("#start-button");
 const width = 10;
+let nextRandom = 0;
 
 // The tetrominoes
 
@@ -79,15 +80,103 @@ const moveDown = () => {
 
 let timerId = setInterval(moveDown, 500);
 
+// Assgn functions to appropriate key codes
+
+const control = (e) => {
+    if (e.keyCode === 37) {
+        moveLeft();
+    } else if (e.keyCode === 39) {
+        moveRight();
+    } else if (e.keyCode === 38) {
+        rotate();
+    } else if (e.keyCode === 40) {
+        moveDown();
+    }
+}
+document.addEventListener("keyup", control);
+
 // Freeze function
 
 const freeze = () => {
     if (current.some(index => squares[currentPosition + index + width].classList.contains("taken"))) {
         current.forEach(index => squares[currentPosition + index].classList.add("taken"));
         // Start the next tetromino to fall
-        random = Math.floor(Math.random()*theTetrominoes.length);
+        random = nextRandom;
+        nextRandom = Math.floor(Math.random()*theTetrominoes.length);
         current = theTetrominoes[random][currentRotation];
         currentPosition = 4;
         draw();
+        displayShape();
     }
+}
+
+// Move the tetromino left until it hits the edge
+
+const moveLeft = () => {
+    undraw();
+    const leftEdge = current.some(index => (currentPosition + index) % width === 0);
+
+    if (!leftEdge) {
+        currentPosition -= 1;
+    }
+    if (current.some(index => squares[currentPosition + index].classList.contains("taken"))) {
+        currentPosition += 1;
+    }
+    draw();
+}
+
+// Move the tetromino right until it hits the edge
+
+const moveRight = () => {
+    undraw();
+    const rightEdge = current.some(index => (currentPosition + index) % width === width - 1);
+
+    if (!rightEdge) {
+        currentPosition += 1;
+    }
+    if (current.some(index => squares[currentPosition + index].classList.contains("taken"))) {
+        currentPosition -= 1;
+    }
+    draw();
+}
+
+// Rotate the tetronmino
+
+const rotate = () => {
+    undraw();
+    currentRotation ++
+
+    if (currentRotation === current.length) {
+        currentRotation = 0;
+    }
+    current = theTetrominoes[random][currentRotation];
+    draw();
+}
+
+// Show the tetromino that is next up on the mini grid display
+
+const displaySquares = document.querySelectorAll(".mini-grid div");
+const displayWidth = 4;
+let displayIndex = 0;
+
+// Tetrominoes without rotation
+
+const nextTetrominoes = [
+    [1, displayWidth+1, displayWidth*2+1, 2],
+    [0, displayWidth, displayWidth+1, displayWidth*2+1],
+    [1, displayWidth, displayWidth +1, displayWidth+2],
+    [0, 1, displayWidth, displayWidth+1],
+    [1, displayWidth+1, displayWidth*2+1, displayWidth*3+1]
+];
+
+// Function to display the shapes
+
+const displayShape = () => {
+    // Removing tetromino from the entire grid
+    displaySquares.forEach(square => {
+        square.classList.remove("tetromino");
+    })
+    nextTetrominoes[nextRandom].forEach(index => {
+        displaySquares[displayIndex + index].classList.add("tetromino");
+    })
 }
