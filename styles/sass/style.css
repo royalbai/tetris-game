@@ -350,4 +350,9 @@ body h2 {
     font-size: 40px;
     width: 90%;
   }
+}
+@media (max-width: 600px) {
+  body {
+    overflow-x: hidden;
+  }
 }/*# sourceMappingURL=style.css.map */
