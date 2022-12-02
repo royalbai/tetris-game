@@ -8,12 +8,16 @@ let nextRandom = 0;
 let timerId;
 let score = 0;
 const colors = [
-    "orange",
-    "red",
-    "purple",
-    "green",
-    "blue"
-]
+    "dodgerBlue",
+    "lawnGreen",
+    "mediumVioletRed",
+    "rebeccaPurple",
+    "orangeRed"
+];
+const clickUp = document.querySelector(".fa-arrow-up");
+const clickLeft = document.querySelector(".fa-arrow-left");
+const clickDown = document.querySelector(".fa-arrow-down");
+const clickRight = document.querySelector(".fa-arrow-right");
 
 // The tetrominoes
 const lTetromino = [
@@ -78,7 +82,7 @@ const moveDown = () => {
     freeze();
 }
 
-// Assgn functions to appropriate key codes
+// Assign functions to appropriate key codes
 const control = (e) => {
     if (e.keyCode === 37) {
         moveLeft();
@@ -203,7 +207,7 @@ startBtn.addEventListener("click", () => {
         timerId = null;
     } else {
         draw();
-        timerId = setInterval(moveDown, 500);
+        timerId = setInterval(moveDown, 300);
         displayShape();
     }
 }) 
@@ -235,3 +239,10 @@ const gameOver = () => {
         clearInterval(timerId);
     }
 }
+
+// Click configurations
+
+clickUp.addEventListener("click", rotate);
+clickLeft.addEventListener("click", moveLeft);
+clickDown.addEventListener("click", moveDown);
+clickRight.addEventListener("click", moveRight);

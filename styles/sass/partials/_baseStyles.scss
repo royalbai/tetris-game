@@ -4,6 +4,7 @@
 body {
     background-image: url(../assets/tetris-background.jpg);
     background-size: cover;
+    height: 95vh;
     font-family: 'Orbitron', sans-serif;
     text-align: center;
 
@@ -25,6 +26,20 @@ body {
 
     h1 {
         font-size: 100px;
+    }
+
+    .click-buttons {
+        width: 200%;
+        margin-top: 100px;
+        display: none;
+
+        i {
+            font-size: 50px;
+            color: white;
+            padding: 10px;
+            border: 1px white outset;
+            border-radius: 15px;
+        }
     }
 }
 
@@ -67,6 +82,10 @@ body {
         height: 150px;
         width: 110px;
         margin-left: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     .grid {
@@ -78,7 +97,6 @@ body {
     .mini-grid {
         width: 80px;
         height: 80px;
-        margin-top: 20px;
         margin-left: 20px;
     }
 }
@@ -93,5 +111,6 @@ button {
     margin-top: 60px;
     padding: 10px;
     font-family: inherit;
-    font-size: 30px;
+    font-size: 20px;
+    width: 100%;
 }

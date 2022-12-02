@@ -1,0 +1,21 @@
+@media (max-width: 1200px) {
+    body {
+        .click-buttons {
+            display: block;
+        }
+
+        h3 {
+            margin-top: 230px;
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+        h1,
+        h2 {
+            font-size: 40px;
+            width: 90%;
+        }
+    }
+}

@@ -233,6 +233,7 @@ html {
 body {
   background-image: url(../assets/tetris-background.jpg);
   background-size: cover;
+  height: 95vh;
   font-family: "Orbitron", sans-serif;
   text-align: center;
 }
@@ -252,6 +253,18 @@ body h2 {
 }
 body h1 {
   font-size: 100px;
+}
+body .click-buttons {
+  width: 200%;
+  margin-top: 100px;
+  display: none;
+}
+body .click-buttons i {
+  font-size: 50px;
+  color: white;
+  padding: 10px;
+  border: 1px white outset;
+  border-radius: 15px;
 }
 
 .wrapper {
@@ -294,6 +307,10 @@ body h1 {
   height: 150px;
   width: 110px;
   margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .container .grid {
   width: 200px;
@@ -303,7 +320,6 @@ body h1 {
 .container .mini-grid {
   width: 80px;
   height: 80px;
-  margin-top: 20px;
   margin-left: 20px;
 }
 
@@ -316,5 +332,22 @@ button {
   margin-top: 60px;
   padding: 10px;
   font-family: inherit;
-  font-size: 30px;
+  font-size: 20px;
+  width: 100%;
+}
+
+@media (max-width: 1200px) {
+  body .click-buttons {
+    display: block;
+  }
+  body h3 {
+    margin-top: 230px;
+  }
+}
+@media (max-width: 600px) {
+  body h1,
+body h2 {
+    font-size: 40px;
+    width: 90%;
+  }
 }/*# sourceMappingURL=style.css.map */
