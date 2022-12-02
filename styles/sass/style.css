@@ -353,6 +353,6 @@ body h2 {
 }
 @media (max-width: 600px) {
   body {
-    overflow-x: hidden;
+    width: 90%;
   }
 }/*# sourceMappingURL=style.css.map */
