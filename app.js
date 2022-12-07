@@ -1,12 +1,22 @@
 const grid = document.querySelector(".grid");
-let squares = Array.from(document.querySelectorAll(".grid div"));
+const miniGrid = document.querySelector(".mini-grid");
+// Creating divs
+for (let i = 0; i < 210; i++) {
+    let element = document.createElement("div");
+    if (i >= 200) {
+        element.classList.add("taken");
+    }
+    grid.appendChild(element);
+}
+for (let i = 0; i < 16; i++) {
+    let element = document.createElement("div");
+    miniGrid.appendChild(element);
+}
+
 const scoreDisplay = document.querySelector("#score");
 const endDisplay = document.querySelector("h2");
 const startBtn = document.querySelector("#start-button");
 const width = 10;
-let nextRandom = 0;
-let timerId;
-let score = 0;
 const colors = [
     "dodgerBlue",
     "lawnGreen",
@@ -18,6 +28,11 @@ const clickUp = document.querySelector(".fa-arrow-up");
 const clickLeft = document.querySelector(".fa-arrow-left");
 const clickDown = document.querySelector(".fa-arrow-down");
 const clickRight = document.querySelector(".fa-arrow-right");
+
+let squares = Array.from(document.querySelectorAll(".grid div"));
+let nextRandom = 0;
+let timerId;
+let score = 0;
 
 // The tetrominoes
 const lTetromino = [
@@ -74,12 +89,15 @@ const undraw = () => {
     })
 }
 
-// Set the tetromino to move downward 1 space every second
+// Set the tetromino to move downward and allow user to make last second movements before freeze
 const moveDown = () => {
-    undraw(); 
-    currentPosition += width; 
-    draw();
-    freeze();
+    if(!current.some(index => squares[currentPosition + index + width].classList.contains("taken"))) {
+        undraw();
+        currentPosition += width;
+        draw();
+    } else {
+        freeze();  
+    }
 }
 
 // Assign functions to appropriate key codes
