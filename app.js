@@ -1,6 +1,5 @@
 const grid = document.querySelector(".grid");
 const miniGrid = document.querySelector(".mini-grid");
-// Creating divs
 for (let i = 0; i < 210; i++) {
     let element = document.createElement("div");
     if (i >= 200) {
@@ -12,11 +11,14 @@ for (let i = 0; i < 16; i++) {
     let element = document.createElement("div");
     miniGrid.appendChild(element);
 }
-
+let squares = Array.from(document.querySelectorAll(".grid div"));
 const scoreDisplay = document.querySelector("#score");
 const endDisplay = document.querySelector("h2");
 const startBtn = document.querySelector("#start-button");
 const width = 10;
+let nextRandom = 0;
+let timerId;
+let score = 0;
 const colors = [
     "dodgerBlue",
     "lawnGreen",
@@ -28,11 +30,6 @@ const clickUp = document.querySelector(".fa-arrow-up");
 const clickLeft = document.querySelector(".fa-arrow-left");
 const clickDown = document.querySelector(".fa-arrow-down");
 const clickRight = document.querySelector(".fa-arrow-right");
-
-let squares = Array.from(document.querySelectorAll(".grid div"));
-let nextRandom = 0;
-let timerId;
-let score = 0;
 
 // The tetrominoes
 const lTetromino = [
@@ -100,23 +97,8 @@ const moveDown = () => {
     }
 }
 
-// Assign functions to appropriate key codes
-const control = (e) => {
-    if (e.keyCode === 37) {
-        moveLeft();
-    } else if (e.keyCode === 39) {
-        moveRight();
-    } else if (e.keyCode === 38) {
-        rotate();
-    } else if (e.keyCode === 40) {
-        moveDown();
-    }
-}
-document.addEventListener("keyup", control);
-
 // Freeze function
 const freeze = () => {
-    if (current.some(index => squares[currentPosition + index + width].classList.contains("taken"))) {
         current.forEach(index => squares[currentPosition + index].classList.add("taken"));
         // Start the next tetromino to fall
         random = nextRandom;
@@ -127,7 +109,6 @@ const freeze = () => {
         displayShape();
         addScore();
         gameOver();
-    }
 }
 
 // Move the tetromino left until it hits the edge
@@ -218,15 +199,39 @@ const displayShape = () => {
     })
 }
 
+// Assign functions to appropriate key codes
+const control = (e) => {
+    if (e.keyCode === 37) {
+        moveLeft();
+    } else if (e.keyCode === 39) {
+        moveRight();
+    } else if (e.keyCode === 38) {
+        rotate();
+    } else if (e.keyCode === 40) {
+        moveDown();
+    }
+} 
+
 // Add Functionality to the button
 startBtn.addEventListener("click", () => {
     if (timerId) {
         clearInterval(timerId);
         timerId = null;
+        document.removeEventListener("keydown", control);
+        clickUp.removeEventListener("click", rotate);
+        clickLeft.removeEventListener("click", moveLeft);
+        clickDown.removeEventListener("click", moveDown);
+        clickRight.removeEventListener("click", moveRight);
     } else {
         draw();
         timerId = setInterval(moveDown, 300);
         displayShape();
+        document.addEventListener("keydown", control);
+        // Click configurations
+        clickUp.addEventListener("click", rotate);
+        clickLeft.addEventListener("click", moveLeft);
+        clickDown.addEventListener("click", moveDown);
+        clickRight.addEventListener("click", moveRight);
     }
 }) 
 
@@ -257,10 +262,3 @@ const gameOver = () => {
         clearInterval(timerId);
     }
 }
-
-// Click configurations
-
-clickUp.addEventListener("click", rotate);
-clickLeft.addEventListener("click", moveLeft);
-clickDown.addEventListener("click", moveDown);
-clickRight.addEventListener("click", moveRight);
