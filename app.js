@@ -218,6 +218,7 @@ startBtn.addEventListener("click", () => {
         clearInterval(timerId);
         timerId = null;
         document.removeEventListener("keydown", control);
+        // Click configurations
         clickUp.removeEventListener("click", rotate);
         clickLeft.removeEventListener("click", moveLeft);
         clickDown.removeEventListener("click", moveDown);
