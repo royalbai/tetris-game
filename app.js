@@ -1,3 +1,4 @@
+// Creating grids for the game
 const grid = document.querySelector(".grid");
 const miniGrid = document.querySelector(".mini-grid");
 for (let i = 0; i < 210; i++) {
@@ -31,7 +32,7 @@ const clickLeft = document.querySelector(".fa-arrow-left");
 const clickDown = document.querySelector(".fa-arrow-down");
 const clickRight = document.querySelector(".fa-arrow-right");
 
-// The tetrominoes
+// The tetrominoes and the shape it will take in 4 different positions
 const lTetromino = [
     [1, width+1, width*2+1, 2],
     [width, width+1, width+2, width*2+2],
@@ -70,7 +71,7 @@ let currentRotation = 0;
 let random = Math.floor(Math.random()*theTetrominoes.length);
 let current = theTetrominoes[random][currentRotation];
 
-// Draw the tetromino
+// Draw the tetromino into the grid divs by accessing squares variable
 const draw = () => {
     current.forEach(index => {
         squares[currentPosition + index].classList.add("tetromino");
@@ -78,7 +79,7 @@ const draw = () => {
     })
 }
 
-// Undraw the tetromino
+// Undraw the tetromino by removing the class "tetromino" in grid divs
 const undraw = () => {
     current.forEach(index => {
         squares[currentPosition + index].classList.remove("tetromino");
@@ -88,7 +89,7 @@ const undraw = () => {
 
 // Set the tetromino to move downward and allow user to make last second movements before freeze
 const moveDown = () => {
-    if(!current.some(index => squares[currentPosition + index + width].classList.contains("taken"))) {
+    if(!current.some(index => squares[currentPosition + index +     width].classList.contains("taken"))) {
         undraw();
         currentPosition += width;
         draw();
@@ -137,7 +138,7 @@ const moveRight = () => {
     draw();
 }
 
- ///Fix rotation of tetrominos on the edge
+ ///Fix rotation of tetrominos on the edge so that they don't break
 const isAtRight = () => {
     return current.some(index=> (currentPosition + index + 1) % width === 0)  
 }
@@ -146,7 +147,7 @@ const isAtLeft = () => {
 }
 const checkRotatedPosition = (p) => {
     p = p || currentPosition            //Get current position and check if the piece is near the edge
-    if ((p+1) % width < 4) {            //Add 1 because the position index can be 1 less than where the piece is (with how they are indexed)    
+    if ((p + 1) % width < 4) {            //Add 1 because the position index can be 1 less than where the piece is (with how they are indexed)    
       if (isAtRight()){                 //Use actual position to check if it's flipped over
         currentPosition += 1            //If so, add one to wrap it back around
         checkRotatedPosition(p)         //Check again and pass position from start, since long block might need to move more
@@ -240,7 +241,6 @@ startBtn.addEventListener("click", () => {
 const addScore = () => {
     for (let i = 0; i < 199; i += width) {
         const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
-        
         if (row.every(index => squares[index].classList.contains("taken"))) {
             score += 10;
             scoreDisplay.innerHTML = score;
